@@ -1,15 +1,16 @@
+// Import React hooks
 import { useState, useEffect } from "react";
+import moment from 'moment'
 
-//styling
-import "./App.css";
-
-//components
-import Form from "../Form";
+// Import React components
+import Header from "../Header";
 import Feed from "../Feed";
 import Navbar from "../Nav";
 import Button from "../Button";
 
-
+// Import CSS 
+import css from './App.module.css';
+import './index.css';
 
 //declare vars
 const API_URL = "https://code-review-soc-app.herokuapp.com";
@@ -20,7 +21,7 @@ let initialState = [];
 
 function App() {
   const [posts, updatePosts] = useState(initialState);
- 
+
   function handleNewPost(newPost) {
     // const newArray = [...posts, newPost];
     const newArray = [newPost, ...posts];
@@ -35,7 +36,7 @@ function App() {
       post_id: data.payload[count].post_id,
       title: data.payload[count].title,
       username: "guestUser123",
-      date: data.payload[count].date,
+      date: moment(data.payload[0].date).fromNow(),
       code: data.payload[count].content,
       attempt: data.payload[count].attempted,
       describe: data.payload[count].problem,
@@ -59,7 +60,7 @@ function App() {
         post_id: data.payload[0].post_id,
         title: data.payload[0].title,
         username: "guestUser123",
-        date: data.payload[0].date,
+        date: moment(data.payload[0].date).fromNow(),
         code: data.payload[0].content,
         attempt: data.payload[0].attempted,
         describe: data.payload[0].problem,
@@ -71,10 +72,12 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={css.App}>
       <Navbar />
+      <div className={css["form-container"]}>
+        <Header handleNewPost={handleNewPost} />
+      </div>
       <div className="container">
-        <Form handleNewPost={handleNewPost} />
         <Feed posts={posts} />
         <Button onClick={onClick} />
       </div>

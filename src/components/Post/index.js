@@ -1,5 +1,5 @@
 import React from "react";
-import "./Post.css";
+import css from "./Post.module.css";
 
 function Post({
   avatar,
@@ -12,13 +12,13 @@ function Post({
   attempt,
 }) {
   return (
-    <div className="post">
-      <div className="post-user">
-        <div className="post-user-info">
-          <div className="avatar">
+    <div className={css["post"]}>
+      <div className={css["post-user"]}>
+        <div className={css["post-user-info"]}>
+          <div className={css["avatar"]}>
             <img src={avatar} alt="" />
           </div>
-          <div className="profile">
+          <div className={css["profile"]}>
             <h3>
               <a href="https://loving-euclid-e4fece.netlify.app">{username}</a>
             </h3>
@@ -34,13 +34,13 @@ function Post({
           <i className="fas fa-ellipsis-h"></i>
         </a>
       </div>
-      <h4 className="post-title">{title}</h4>
+      <h4 className={css["post-title"]}>{title}</h4>
       <h5 className="content">{describe}</h5>
       <p className="post-attempt">{attempt}</p>
-      <p className="input-post">
+      <p className={css["input-post"]}>
         <code>{code}</code>
       </p>
-      <div className="inte">
+      <div className={css["inte"]}>
         <div className="like">
           <a href="https://loving-euclid-e4fece.netlify.app">
             <i className="fas fa-thumbs-up"></i> 2
@@ -49,8 +49,6 @@ function Post({
         <div className="comment">
           <a href="https://loving-euclid-e4fece.netlify.app">2 Saves</a>
         </div>
-      </div>
-      <div className="a-inte">
         <ul>
           <a href="https://loving-euclid-e4fece.netlify.app">
             <i className="far fa-thumbs-up"></i> Like

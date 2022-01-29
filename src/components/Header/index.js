@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import css from './Header.module.css';
+
 //declare vars
 const API_URL = "https://code-review-soc-app.herokuapp.com";
 
@@ -10,7 +12,7 @@ const API_URL = "https://code-review-soc-app.herokuapp.com";
 
 // /posts
 
-export function Form({ handleNewPost }) {
+export function Header({ handleNewPost }) {
   const [inputName, updateName] = useState("");
   const [inputTitle, updateTitle] = useState("");
   const [inputProblem, updateProblem] = useState("");
@@ -84,7 +86,7 @@ export function Form({ handleNewPost }) {
     // console.log(data.payload.attempted);
     const postDetails = {
       post_id: data.payload.post_id,
-      title:  data.payload.title,
+      title: data.payload.title,
       username: post.username,
       date: data.payload.date,
       code: data.payload.content,
@@ -95,10 +97,13 @@ export function Form({ handleNewPost }) {
   }
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <div className="title">What is your question?</div>
-      <div className="subtitle">Articulate your question in the School of Code way!</div>
-      <div className="input-container ic1">
+    <form className={css.form} onSubmit={handleSubmit}>
+      <div className={css.intro}>
+        <div className={css.title}>What is your <span>question?</span></div>
+        <div className={css.subtitle}>Articulate your question in the School of Code way</div>
+      </div>
+
+      <div className={css["input-container"]}>
         <input
           id="firstname"
           className="input"
@@ -111,8 +116,6 @@ export function Form({ handleNewPost }) {
         <label htmlFor="firstname" className="placeholder">
           Name
         </label>
-      </div>
-      <div className="input-container ic2">
         <input
           id="title"
           className="input"
@@ -125,8 +128,6 @@ export function Form({ handleNewPost }) {
         <label htmlFor="title" className="placeholder">
           Title
         </label>
-      </div>
-      <div className="input-container ic2">
         <input
           id="describe"
           className="input"
@@ -139,8 +140,6 @@ export function Form({ handleNewPost }) {
         <label htmlFor="describe" className="placeholder">
           Describe your problem
         </label>
-      </div>
-      <div className="input-container ic2">
         <input
           id="attempted"
           className="input"
@@ -153,8 +152,6 @@ export function Form({ handleNewPost }) {
         <label htmlFor="describe" className="placeholder">
           What have you tried?
         </label>
-      </div>
-      <div className="input-container-new ic2">
         <input
           id="code"
           className="input"
@@ -167,12 +164,12 @@ export function Form({ handleNewPost }) {
         <label htmlFor="code" className="placeholder">
           Insert your code here
         </label>
+        <button type="submit" className="submit">
+          submit
+        </button>
       </div>
-      <button type="submit" className="submit">
-        submit
-      </button>
     </form>
   );
 }
 
-export default Form;
+export default Header;

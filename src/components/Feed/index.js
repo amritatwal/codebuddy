@@ -1,5 +1,6 @@
 import React from "react";
 import Post from "../Post";
+import moment from 'moment'
 
 function Feed({ posts }) {
   return (
@@ -11,7 +12,7 @@ function Feed({ posts }) {
             avatar="https://i.ibb.co/r2z4DvG/avatar-soc1.png"
             title={post.title}
             username={post.username}
-            date={Date()}
+            date={moment(Date()).fromNow()}
             code={post.code}
             comments="Try this solution"
             attempt={post.attempt}
