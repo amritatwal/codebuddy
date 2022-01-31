@@ -1,16 +1,25 @@
 import React from "react";
 import css from "./Post.module.css";
+import CommentForm from '../CommentForm/index.js';
+import CommentList from '../CommentList/index.js';
+import { useState } from 'react';
 
 function Post({
+  post_id,
   avatar,
   title,
   username,
   date,
   code,
-  comments,
   describe,
   attempt,
 }) {
+  const [comments, setComments] = useState([]);
+
+  function addComment(textInput, authorInput, post_id) {
+    setComments([...comments, { post_id: post_id, author: authorInput, body: textInput }])
+  }
+  
   return (
     <div className={css["post"]}>
       <div className={css["post-user"]}>
@@ -25,6 +34,7 @@ function Post({
             <span className="post-time">
               <a href="https://loving-euclid-e4fece.netlify.app">{date}</a>
             </span>
+
           </div>
         </div>
         <a
@@ -64,62 +74,11 @@ function Post({
       <div className="all-com">
         <a href="https://loving-euclid-e4fece.netlify.app">Previous comments</a>
       </div>
-      <div className="users-comments">
-        <ul>
-          <li>
-            <div className="users-comments-avatar">
-              <img src="https://i.pravatar.cc/295" alt="" />
-            </div>
-            <div className="users-com">
-              <a
-                href="https://loving-euclid-e4fece.netlify.app"
-                className="user-name"
-              >
-                John Smith
-              </a>
-              <p className="user-com">
-                I had the same problem, do you need to close the bracket?
-              </p>
-            </div>
-          </li>
-          <li>
-            <div className="users-comments-avatar">
-              <img src="https://i.pravatar.cc/298" alt="" />
-            </div>
-            <div className="users-com">
-              <a
-                href="https://loving-euclid-e4fece.netlify.app"
-                className="user-name"
-              >
-                Connor McGregor
-              </a>
-              <p className="user-com">Oh you missed a semi colon</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div className="my-com">
-        <div className="users-comments-avatar">
-          <img src="https://i.pravatar.cc/295" alt="" />
-        </div>
-        <div className="inp-com">
-          <input type="text" placeholder="Write a comment" />
-          <ul className="inp-buttons">
-            <li>
-              <a href="https://loving-euclid-e4fece.netlify.app">
-                <i className="far fa-grin-alt"></i>
-              </a>
-            </li>
-            <li>
-              <a href="https://loving-euclid-e4fece.netlify.app">
-                <i className="fas fa-camera"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <CommentForm addComment={addComment} post_id={post_id} />
+      {comments.map(comment => {
+        return <CommentList author={comment.author} body={comment.body} />
+      })}
     </div>
   );
 }
-
 export default Post;
