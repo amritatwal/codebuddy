@@ -2,7 +2,13 @@ import React from "react";
 import css from "./Post.module.css";
 import CommentForm from '../CommentForm/index.js';
 import CommentList from '../CommentList/index.js';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// TODO: 
+// CHANGE BELOW TO ENV VAR  
+const API_URL = "https://code-review-soc-app.herokuapp.com/";
+
+let details;
 
 function Post({
   post_id,
@@ -14,12 +20,6 @@ function Post({
   describe,
   attempt,
 }) {
-  const [comments, setComments] = useState([]);
-
-  function addComment(textInput, authorInput, post_id) {
-    setComments([...comments, { post_id: post_id, author: authorInput, body: textInput }])
-  }
-  
   return (
     <div className={css["post"]}>
       <div className={css["post-user"]}>
@@ -74,10 +74,8 @@ function Post({
       <div className="all-com">
         <a href="https://loving-euclid-e4fece.netlify.app">Previous comments</a>
       </div>
-      <CommentForm addComment={addComment} post_id={post_id} />
-      {comments.map(comment => {
-        return <CommentList author={comment.author} body={comment.body} />
-      })}
+      <CommentForm post_id={post_id} />
+      {/* <CommentList comments={comments} /> */}
     </div>
   );
 }

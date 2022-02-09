@@ -1,5 +1,5 @@
 // Import React hooks
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import moment from 'moment'
 
 // Import React components
@@ -15,71 +15,44 @@ import './index.css';
 //declare vars
 const API_URL = "https://code-review-soc-app.herokuapp.com";
 
-let data;
-let count = 1;
 let initialState = [];
 
 function App() {
-  const [posts, updatePosts] = useState(initialState);
+  const [renderedPosts, updateRenderedPosts] = useState(initialState);
+  const [numberOfPosts, setnumberOfPosts] = useState(1);
 
-  function handleNewPost(newPost) {
-    // const newArray = [...posts, newPost];
-    const newArray = [newPost, ...posts];
-    updatePosts(newArray);
+  function handlePost(post) {
+    updateRenderedPosts([...renderedPosts, post]);
   }
 
-  function onClick() {
-    //console.log(data);
+  // Fetch a post from the back-end
+  // TODO: render a few posts once one works,
+  // TODO: abstract away the API fetching elsewhere so we can reuse this when fetching comments
 
-    const postDetails = {
-      //iterate post
-      post_id: data.payload[count].post_id,
-      title: data.payload[count].title,
-      username: "guestUser123",
-      date: moment(data.payload[0].date).fromNow(),
-      code: data.payload[count].content,
-      attempt: data.payload[count].attempted,
-      describe: data.payload[count].problem,
-    };
-    count++;
-
-    handleNewPost(postDetails);
-  }
-
-  // Rendering a post upon inital load
+  const fetchPost = async () => {
+    const response = await fetch(`${API_URL}/posts/${numberOfPosts}`, {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
+    const post = data.payload[0];
+    handlePost(post);
+  };
 
   useEffect(() => {
-    const fetchPost = async () => {
-      const response = await fetch(`${API_URL}/posts`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      data = await response.json();
-      //make data outside
-      const postDetails = {
-        post_id: data.payload[0].post_id,
-        title: data.payload[0].title,
-        username: "guestUser123",
-        date: moment(data.payload[0].date).fromNow(),
-        code: data.payload[0].content,
-        attempt: data.payload[0].attempted,
-        describe: data.payload[0].problem,
-      }
-      const newArray = [...initialState, postDetails]
-      updatePosts(newArray);
-    }
-    fetchPost();
+    fetchPost()
+    //eslint-disable-next-line
   }, []);
 
   return (
     <div className={css.App}>
       <Navbar />
       <div className={css["form-container"]}>
-        <Header handleNewPost={handleNewPost} />
+        <Header />
       </div>
       <div className="container">
-        <Feed posts={posts} />
-        <Button onClick={onClick} />
+        <Feed posts={renderedPosts} />
+        {/* <Button onClick={onClick} /> */}
       </div>
     </div>
   );

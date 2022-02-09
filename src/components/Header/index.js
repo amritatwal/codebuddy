@@ -12,7 +12,7 @@ const API_URL = "https://code-review-soc-app.herokuapp.com";
 
 // /posts
 
-export function Header({ handleNewPost }) {
+export function Header() {
   const [inputName, updateName] = useState("");
   const [inputTitle, updateTitle] = useState("");
   const [inputProblem, updateProblem] = useState("");
@@ -82,18 +82,7 @@ export function Header({ handleNewPost }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
     });
-    const data = await response.json();
-    // console.log(data.payload.attempted);
-    const postDetails = {
-      post_id: data.payload.post_id,
-      title: data.payload.title,
-      username: post.username,
-      date: data.payload.date,
-      code: data.payload.content,
-      attempt: data.payload.attempted,
-      describe: data.payload.problem,
-    };
-    handleNewPost(postDetails);
+    return response;
   }
 
   return (

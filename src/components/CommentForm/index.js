@@ -2,9 +2,9 @@ import React from 'react';
 import { useState } from 'react';
 import moment from 'moment'
 
-const API_URL = "https://code-review-soc-app.herokuapp.com"
+const API_URL = "http://localhost:5000"
 
-const CommentForm = ({ addComment, post_id }) => {
+const CommentForm = ({ post_id }) => {
     const [inputText, updateInputText] = useState("");
     const [inputAuthor, updateInputAuthor] = useState("Anon");
 
@@ -16,12 +16,6 @@ const CommentForm = ({ addComment, post_id }) => {
         updateInputAuthor(e.target.value);
     }
 
-    // function handleSubmit(e) {
-    //     addComment(inputText, inputAuthor, post_id);
-    //     updateInputText("");
-    //     e.preventDefault();
-    // }
-
     function handleSubmit(e) {
         const comment = {
             post_id: post_id,
@@ -29,22 +23,19 @@ const CommentForm = ({ addComment, post_id }) => {
             content: inputText,
             date_created: moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
         }
-        console.log(comment);
-        createComment(comment);
+        createComment(comment, post_id);
         updateInputText("");
         e.preventDefault();
     }
 
     // application/json for line 80
-    async function createComment(comment) {
-        const response = await fetch(`${API_URL}/comments`, {
+    async function createComment(comment, post_id) {
+        const response = await fetch(`${API_URL}/posts/${post_id}/comments`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(comment),
         });
         const data = await response.json();
-        console.log(data)
-        // handleNewPost(postDetails);
     }
 
     return (
