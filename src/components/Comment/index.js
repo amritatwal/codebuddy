@@ -1,11 +1,11 @@
 import React from "react";
 
-export function Comment({ author, text }) {
+export function Comment({ comment }) {
     return (
         <>
             <div className="comment">
-                <p className="comment--author">{author}</p>
-                <p className="comment--text">{text}</p>
+                <p className="comment--author">{comment.author_id}</p>
+                <p className="comment--text">{comment.content}</p>
             </div>
         </>
     );

@@ -15,7 +15,6 @@ function Feed({ posts }) {
             username={post.username}
             date={moment(Date()).fromNow()}
             code={post.code}
-            comments="Try this solution"
             attempt={post.attempt}
             describe={post.describe}
           />

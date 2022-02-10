@@ -75,7 +75,7 @@ function Post({
         <a href="https://loving-euclid-e4fece.netlify.app">Previous comments</a>
       </div>
       <CommentForm post_id={post_id} />
-      {/* <CommentList comments={comments} /> */}
+      <CommentList post_id={post_id}/>
     </div>
   );
 }
