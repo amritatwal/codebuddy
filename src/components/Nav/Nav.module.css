@@ -23,8 +23,7 @@
     }
 }
 
-
-h1 {
+/* h1 {
     font-family: Aemstel-Regular;
     font-size: 2.1em;
     font-weight: 400;
@@ -33,9 +32,9 @@ h1 {
     color: #1f1e1e;
 }
 
-h1 > span {
+/* h1 > span {
     color: #7575FF;
-}
+} */ 
 
 .login-container {
     flex-grow: 0;

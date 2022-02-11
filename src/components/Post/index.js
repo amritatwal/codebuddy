@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 
 // TODO: 
 // CHANGE BELOW TO ENV VAR  
-const API_URL = "https://code-review-soc-app.herokuapp.com/";
+const API_URL = "https://code-review-soc-app.herokuapp.com";
 
 let details;
 
@@ -44,6 +44,7 @@ function Post({
           <i className="fas fa-ellipsis-h"></i>
         </a>
       </div>
+      <p>{post_id}</p>
       <h4 className={css["post-title"]}>{title}</h4>
       <h5 className="content">{describe}</h5>
       <p className="post-attempt">{attempt}</p>

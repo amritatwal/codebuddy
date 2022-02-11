@@ -5,10 +5,10 @@ import moment from 'moment'
 function Feed({ posts }) {
   return (
     <article className="feed">
-      {posts.map((post) => {
+      {posts.map((post, index) => {
         return (
           <Post
-            key={post.post_id}
+            key={index}
             post_id={post.post_id}
             avatar="https://i.ibb.co/r2z4DvG/avatar-soc1.png"
             title={post.title}

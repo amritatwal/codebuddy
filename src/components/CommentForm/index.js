@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import moment from 'moment'
 
-const API_URL = "http://localhost:5000"
+const API_URL = "https://code-review-soc-app.herokuapp.com"
 
 const CommentForm = ({ post_id }) => {
     const [inputText, updateInputText] = useState("");

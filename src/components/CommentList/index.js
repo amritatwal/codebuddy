@@ -8,7 +8,6 @@ const API_URL = "https://code-review-soc-app.herokuapp.com";
 
 export function CommentList({ post_id }) {
     const [comments, setComments] = useState();
-    console.log(comments)
 
     const fetchComments = async () => {
         const response = await fetch(`${API_URL}/posts/${post_id}/comments`, {
@@ -27,8 +26,8 @@ export function CommentList({ post_id }) {
 
     return (
         <div>
-            {comments?.map((comment) => {
-                return <Comment comment={comment} />
+            {comments?.map((comment, index) => {
+                return <Comment comment={comment} key={index}/>
             })}
         </div>
     )
